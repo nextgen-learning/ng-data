@@ -2,7 +2,7 @@
   "type": "service_account",
   "project_id": "mindful-hull-401711",
   "private_key_id": "###",
-  "private_key": "-----BEGIN PRIVATE KEY-----\###\n-----END PRIVATE KEY-----\n",
+  "private_key": "-----BEGIN PRIVATE KEY-----\N'importe quoi\n-----END PRIVATE KEY-----\n",
   "client_email": "xxx@yyy.com",
   "client_id": "111",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
