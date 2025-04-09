@@ -1,35 +1,30 @@
-with last_lesson_extract as(
-  select
+WITH last_lesson_extract AS (
+  SELECT
     full_name,
-    date(timestamp_connexion) as date,
+    DATE(timestamp_connexion) AS date,
     programme,
-    case
-      when action like 'Consultation de la leçon%' then regexp_extract(action, r'\d.*') 
-    end as lesson,
+    CASE 
+      WHEN action LIKE 'Consultation de la leçon%' THEN REGEXP_EXTRACT(action, r'\d.*') 
+      END
+    AS lesson,
     duree_action,
     timestamp_connexion,
-    group_number,
-    cast(regexp_extract(action, r'\d+\.\d+') as float64) as ord
-  from mindful-hull-401711.schoolmaker.members_and_events
-  where duree_action > time(00,01,30) and cast(timestamp_connexion as date) > current_date - 7
-  qualify
-    row_number() over(partition by full_name order by ord desc) = 1
+    group_number
+  FROM mindful-hull-401711.schoolmaker.members_and_events      
 )
 
-select 
+SELECT
   full_name,
   date,
-  last_lesson_extract.programme,
-  plan_programme_data_analyst_insider.section,
+  section,
   last_lesson_extract.lesson,
-  group_number,
-from 
-  last_lesson_extract
-left join
-  mindful-hull-401711.schoolmaker.plan_programme_data_analyst_insider plan_programme_data_analyst_insider
-on
-lower(trim(last_lesson_extract.lesson))=lower(trim(plan_programme_data_analyst_insider.lesson))
-where 
-  last_lesson_extract.lesson is not null
-and
-  last_lesson_extract.programme = 'Data Analyst Insider'
+  group_number
+FROM last_lesson_extract
+LEFT JOIN mindful-hull-401711.schoolmaker.plan_programme_data_analyst_insider
+  ON LOWER(TRIM(last_lesson_extract.lesson))=LOWER(TRIM(plan_programme_data_analyst_insider.lesson))
+WHERE last_lesson_extract.lesson IS NOT NULL
+  AND last_lesson_extract.programme = 'Data Analyst Insider'
+  AND duree_action > TIME(00,01,30) 
+  AND duree_action != TIME(01,00,00)
+  AND CAST(timestamp_connexion AS DATE) > CURRENT_DATE - 7
+QUALIFY ROW_NUMBER () OVER (PARTITION BY full_name ORDER BY timestamp_connexion DESC) = 1
