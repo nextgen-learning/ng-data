@@ -60,7 +60,7 @@ def delete_old_file(bucket_name, file_name):
         print(f"Fichier {file_name} supprimé avec succès.")
     else:
         print(f"Fichier {file_name} non trouvé.")
-    
+
 async def main() -> None:
     """Main entry point for the Apify Actor."""
     async with Actor:
@@ -122,8 +122,8 @@ async def main() -> None:
                 if retry_count == MAX_RETRIES:
                     raise Exception("❌ 404 error persisted after 3 attempts. Exiting.")
 
-                    # Attendre 10 secondes (10000 millisecondes) puis recharger la page
-                await delay(10000)
+                    # Attendre 90 secondes (10000 millisecondes) puis recharger la page
+                await delay(90000)
                 try:
                     await page.reload(wait_until="load")  # Attendre jusqu'à ce que la page soit complètement chargée
                     print('Page rechargée')
@@ -220,8 +220,8 @@ async def main() -> None:
                 if retry_count == MAX_RETRIES:
                     raise Exception("❌ 404 error persisted after 3 attempts. Exiting.")
 
-                # Attendre 5 secondes (5000 millisecondes) puis recharger la page
-                await delay(5000)
+                # Attendre 90 secondes (5000 millisecondes) puis recharger la page
+                await delay(90000)
 
                 try:
                     await page.reload(wait_until="load")  # Attendre jusqu'à ce que la page soit complètement chargée
@@ -388,6 +388,43 @@ async def main() -> None:
                     historic_blob.upload_from_filename(str(new_file_with_date_path_obj))  # Utiliser str(new_file_with_date_path_obj) pour obtenir le chemin
                     print(f'Fichier envoyé vers {bucket_name}/historic/members_events_export sous le nom {new_file_with_date_path_obj.name}')
 
+                except Exception as e:
+                    print(f"Erreur lors de l'upload des fichiers vers Google Cloud Storage : {e}")
+
+                ### Ajout du fichier files_last_update ###
+                # Récupération des noms et date de modifications des fichiers dans un JSON
+                try:
+                    # Afficher les noms + date de création
+                    data_json = []
+                    blobs = storage_client.list_blobs(bucket)
+                    for blob in blobs:
+                        if blob.name[:9] != "historic/" and blob.name[-4:] == ".csv":
+                            data_json.append({
+                                "filename": blob.name[:-4],
+                                "updated": blob.time_created.strftime('%Y-%m-%d %H:%M:%S')
+                            })
+                    print(f'Data récupéré depuis le bucket')
+                except Exception as e:
+                    print(f"Erreur lors la récupération des données depuis le bucket")
+
+                # Création du CSV
+                try:
+                    # 1. Upload du fichier sur le bucket
+                    file_name = "file_last_update.csv"
+                    # transformation en dataframe
+                    df = pd.DataFrame(data_json)
+                    # transformation en fichiers.csv
+                    df.to_csv(file_name, index=False)
+                    print(f'Fichier créé sous le nom de {file_name}')
+                except Exception as e:
+                    print(f"Erreur lors la création du fichier csv")
+
+                # Upload sur Google Cloud Storage
+                try:
+                    # 1. Upload du fichier sur le bucket
+                    blob = bucket.blob(file_name)
+                    blob.upload_from_filename(file_name)
+                    print(f'Fichier envoyé vers {bucket_name} sous le nom {file_name}')
                 except Exception as e:
                     print(f"Erreur lors de l'upload des fichiers vers Google Cloud Storage : {e}")
 
