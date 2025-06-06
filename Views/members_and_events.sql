@@ -43,10 +43,14 @@ with requete_1 as (
         )
       ) 
   ) AS timestamp_connexion,
-    numero_groupe as group_number,
+    repartition_eleves_groupe.numero_groupe as group_number,
     members_progression_rate/100 as members_progression_rate,
+    members_progression_rate as members_progression_percent_num,
     members_progression_rate || ' %' as members_progression_percent,
-    time_spent 
+    time_spent,
+    date_acces,
+    avg_progression_rate,
+    avg_time_spent
   FROM mindful-hull-401711.schoolmaker.members_events_export members_events_export
   left join mindful-hull-401711.schoolmaker.members_export members_export
   on members_events_export.email_du_membre = members_export.email
@@ -54,6 +58,8 @@ with requete_1 as (
   on members_events_export.email_du_membre = repartition_eleves_groupe.email
   left join mindful-hull-401711.schoolmaker.members_progression_data_analyst_insider members_progression_data_analyst_insider
   on members_events_export.email_du_membre = members_progression_data_analyst_insider.email
+  inner join mindful-hull-401711.schoolmaker.average_data average_data
+  on repartition_eleves_groupe.numero_groupe = average_data.numero_groupe
 )
 
 select 
