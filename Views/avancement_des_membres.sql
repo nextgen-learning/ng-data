@@ -11,7 +11,7 @@ with last_lesson_extract as(
     group_number,
     cast(regexp_extract(action, r'\d+\.\d+') as float64) as ord
   from mindful-hull-401711.schoolmaker.members_and_events
-  where duree_action > time(00,01,30) and cast(timestamp_connexion as date) > current_date - 7
+  where duree_action > time(00,01,30) and duree_action != '01:00:00' and cast(timestamp_connexion as date) > current_date - 7
   qualify
     row_number() over(partition by full_name order by ord desc) = 1
 )
