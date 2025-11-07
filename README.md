@@ -539,8 +539,7 @@ Il centralise tous les indicateurs clés de suivi de l’assiduité et de la pro
 #### Objectifs du dashboard
 - Visualiser en temps réel l’engagement, la régularité et l’avancement des membres.  
 - Permettre aux formateurs de filtrer les données par cohorte et par membre.  
-- Fournir une **source décisionnelle unique** pour le suivi pédagogique et l’identification des risques de décrochage.  
-&nbsp;
+- Fournir une **source décisionnelle unique** pour le suivi pédagogique et l’identification des risques de décrochage.
 
 ---
 
@@ -558,5 +557,3 @@ Les indicateurs produits sont fiables, cohérents et facilement exploitables par
 
 > ✅ **En résumé :**  
 > Le projet offre un **outil décisionnel puissant** qui centralise toutes les données pertinentes et permet de piloter efficacement la formation *Data Analyst Insider*.
-
-<a id="pistes-amelioration"></a>
