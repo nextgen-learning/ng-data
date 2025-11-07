@@ -534,7 +534,7 @@ Le dashboard permet :
 Le dashboard interactif est accessible en ligne via **Looker Studio**.  
 Il centralise tous les indicateurs clés de suivi de l’assiduité et de la progression des apprenants.  
 
-🔗 [Accéder au dashboard NextGen Learning – Data Analyst Insider](https://lookerstudio.google.com/u/0/reporting/f4ecf1a7-6a25-4775-aa0c-1d583961115a/page/p_mj4ulfv4sd)
+🔗 <a href="https://lookerstudio.google.com/u/0/reporting/f4ecf1a7-6a25-4775-aa0c-1d583961115a/page/p_mj4ulfv4sd" target="_blank">Accéder au dashboard NextGen Learning – Data Analyst Insider</a>
 
 #### Objectifs du dashboard
 - Visualiser en temps réel l’engagement, la régularité et l’avancement des membres.  
