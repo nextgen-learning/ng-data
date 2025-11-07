@@ -42,6 +42,8 @@
 Dans le cadre du suivi des apprenants sur la plateforme **Schoolmaker**, ce projet a pour objectif d’analyser et de visualiser les données d’activité des membres inscrits à la formation **Data Analyst Insider** de NextGen Learning.  
 L’enjeu principal est de mieux comprendre le niveau d’engagement, l’avancement et la régularité des apprenants dans leur parcours de formation.
 
+La plateforme Schoolmaker **ne propose pas de dashboard natif répondant aux besoins spécifiques des formateurs de NextGen Learning**, ce qui rend nécessaire la création d’un outil dédié.
+
 Le projet repose sur la création d’un **dashboard interactif** regroupant plusieurs indicateurs clés, organisés autour de trois axes :  
 - **Engagement** : mesure de l’activité et du temps passé sur la plateforme.  
 - **Avancement** : suivi de la progression dans la formation *Data Analyst Insider*.  
