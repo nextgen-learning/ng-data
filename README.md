@@ -559,3 +559,4 @@ Les indicateurs produits sont fiables, cohérents et facilement exploitables par
 
 > ✅ **En résumé :**  
 > Le projet offre un **outil décisionnel puissant** qui centralise toutes les données pertinentes et permet de piloter efficacement la formation *Data Analyst Insider*.
+> 
